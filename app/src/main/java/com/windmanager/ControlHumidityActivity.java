@@ -11,7 +11,7 @@ import android.widget.ArrayAdapter;
 
 public class ControlHumidityActivity extends UartInterfaceActivity{
     // Log
-    private final static String TAG = ControllerActivity.class.getSimpleName();
+    private final static String TAG = WindControllerActivity.class.getSimpleName();
 
     // Activity request codes (used for onActivityResult)
     private static final int kActivityRequestCode_0ColorPickerActivity = 0;
@@ -26,6 +26,9 @@ public class ControlHumidityActivity extends UartInterfaceActivity{
 
     // UI
     private ViewGroup mUartTooltipViewGroup;
+
+    //Data
+    private String prefix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +48,29 @@ public class ControlHumidityActivity extends UartInterfaceActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
+                    prefix = "!H0";
                     Intent intent = new Intent(ControlHumidityActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_0ColorPickerActivity);
                 }else if(position == 1) {
+                    prefix = "!H1";
                     Intent intent = new Intent(ControlHumidityActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_25ColorPickerActivity);
                 }else if(position == 2) {
+                    prefix = "!H2";
                     Intent intent = new Intent(ControlHumidityActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_50ColorPickerActivity);
                 }else if(position == 3) {
+                    prefix = "!H3";
                     Intent intent = new Intent(ControlHumidityActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_75ColorPickerActivity);
                 }else if(position == 4) {
+                    prefix = "!H4";
                     Intent intent = new Intent(ControlHumidityActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_100ColorPickerActivity);
                 }
             }

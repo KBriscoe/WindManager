@@ -12,12 +12,13 @@ import android.widget.ArrayAdapter;
 
 public class WindControllerActivity extends UartInterfaceActivity{
     // Log
-    private final static String TAG = ControllerActivity.class.getSimpleName();
+    private final static String TAG = WindControllerActivity.class.getSimpleName();
 
     // Activity request codes (used for onActivityResult)
     private static final int kActivityRequestCode_HumidityActivity = 0;
     private static final int kActivityRequestCode_TemperatureActivity = 1;
     private static final int kActivityRequestCode_WeatherActivity = 2;
+    private static final int kActivityRequestCode_SchedulerActivity = 3;
 
     // Constants
     private final static String kPreferences = "ControllerActivity_prefs";
@@ -52,6 +53,9 @@ public class WindControllerActivity extends UartInterfaceActivity{
                 }else if(position == 2) {
                     Intent intent = new Intent(WindControllerActivity.this, ControlHumidityActivity.class);
                     startActivityForResult(intent, kActivityRequestCode_HumidityActivity);
+                }else if(position == 3) {
+                    Intent intent = new Intent(WindControllerActivity.this, ColorPickerActivity.class);
+                    startActivityForResult(intent, kActivityRequestCode_SchedulerActivity);
                 }
             }
         });

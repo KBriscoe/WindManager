@@ -32,15 +32,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ControllerActivity"
-            android:label="@string/title_activity_controller"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="fullUser">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.windmanager.MainActivity" />
-        </activity>
-        <activity
             android:name=".WindControllerActivity"
             android:label="@string/title_activity_controller"
             android:parentActivityName=".MainActivity"
@@ -79,10 +70,10 @@
         <activity
             android:name=".ColorPickerActivity"
             android:label="@string/title_activity_color_picker"
-            android:parentActivityName=".ControllerActivity">
+            android:parentActivityName=".WindControllerActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.windmanager.ControllerActivity" />
+                android:value="com.windmanager.WindControllerActivity" />
         </activity>
     </application>
 </manifest>

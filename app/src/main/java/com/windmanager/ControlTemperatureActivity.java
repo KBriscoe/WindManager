@@ -12,7 +12,7 @@ import android.widget.ArrayAdapter;
 
 public class ControlTemperatureActivity extends UartInterfaceActivity{
     // Log
-    private final static String TAG = ControllerActivity.class.getSimpleName();
+    private final static String TAG = WindControllerActivity.class.getSimpleName();
 
     // Activity request codes (used for onActivityResult)
     private static final int kActivityRequestCode_0TempColorPickerActivity = 0;
@@ -25,7 +25,6 @@ public class ControlTemperatureActivity extends UartInterfaceActivity{
     private static final int kActivityRequestCode_70TempColorPickerActivity = 7;
     private static final int kActivityRequestCode_80TempColorPickerActivity = 8;
     private static final int kActivityRequestCode_90TempColorPickerActivity = 9;
-    private static final int kActivityRequestCode_100TempColorPickerActivity = 10;
 
     // Constants
     private final static String kPreferences = "ControllerActivity_prefs";
@@ -33,6 +32,9 @@ public class ControlTemperatureActivity extends UartInterfaceActivity{
 
     // UI
     private ViewGroup mUartTooltipViewGroup;
+
+    //Data
+    private String prefix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,38 +54,55 @@ public class ControlTemperatureActivity extends UartInterfaceActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
+                    prefix = "!T0";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_0TempColorPickerActivity);
                 }else if(position == 1) {
+                    prefix = "!T1";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_10TempColorPickerActivity);
                 }else if(position == 2) {
+                    prefix = "!T2";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_20TempColorPickerActivity);
                 }else if(position == 3) {
+                    prefix = "!T3";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_30TempColorPickerActivity);
                 }else if(position == 4) {
+                    prefix = "!T4";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_40TempColorPickerActivity);
                 }else if(position == 5) {
+                    prefix = "!T5";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_50TempColorPickerActivity);
                 }else if(position == 6) {
+                    prefix = "!T6";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_60TempColorPickerActivity);
                 }else if(position == 7) {
+                    prefix = "!T7";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_70TempColorPickerActivity);
                 }else if(position == 8) {
+                    prefix = "!T8";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_80TempColorPickerActivity);
                 }else if(position == 9) {
+                    prefix = "!T9";
                     Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
+                    intent.putExtra("PREFIX", prefix);
                     startActivityForResult(intent, kActivityRequestCode_90TempColorPickerActivity);
-                }else if(position == 10) {
-                    Intent intent = new Intent(ControlTemperatureActivity.this, ColorPickerActivity.class);
-                    startActivityForResult(intent, kActivityRequestCode_100TempColorPickerActivity);
                 }
             }
         });

@@ -150,15 +150,6 @@
     <string name="controller_location_disabled">Location is disabled. Go to settings and enable it to receive location data</string>
     <string name="controller_magnetometermissing">Your device doesn\'t have magnetic sensor</string>
 
-    <string-array name="controller_stream_items">
-        <item>Quaternion</item>
-        <item>Accelerometer</item>
-        <item>Gyro</item>
-        <item>Magnetometer</item>
-        <item>Location</item>
-        <item>Magnetometer</item>
-    </string-array>
-
     <string-array name="controller_interface_items">
         <item>Color Picker</item>
         <item>Control Pad</item>
@@ -168,6 +159,7 @@
         <item>Weather</item>
         <item>Temperature</item>
         <item>Humidity</item>
+        <item>Scheduler</item>
     </string-array>
 
     <string-array name="weathercontroller_interface_items">
@@ -186,8 +178,7 @@
         <item>60</item>
         <item>70</item>
         <item>80</item>
-        <item>90</item>
-        <item>100+</item>
+        <item>90+</item>
     </string-array>
 
     <string-array name="humiditycontroller_interface_items">

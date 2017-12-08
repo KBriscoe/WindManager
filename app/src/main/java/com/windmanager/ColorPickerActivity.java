@@ -1,12 +1,9 @@
 package com.windmanager;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -114,10 +111,10 @@ public class ColorPickerActivity extends UartInterfaceActivity implements ColorP
         byte g = (byte) ((mSelectedColor >> 8) & 0xFF);
         byte b = (byte) ((mSelectedColor >> 0) & 0xFF);
 
-        ByteBuffer buffer = ByteBuffer.allocate(2 + 3 * 1).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer buffer = ByteBuffer.allocate(3 + 3 * 1).order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
         // prefix
-        String prefix = "!C";
+        String prefix = getPrefix();
         buffer.put(prefix.getBytes());
 
         // values
@@ -127,5 +124,10 @@ public class ColorPickerActivity extends UartInterfaceActivity implements ColorP
 
         byte[] result = buffer.array();
         sendDataWithCRC(result);
+    }
+
+    private String getPrefix() {
+        Bundle extras = getIntent().getExtras();
+        return extras.getString("PREFIX");
     }
 }
