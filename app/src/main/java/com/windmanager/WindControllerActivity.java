@@ -54,7 +54,7 @@ public class WindControllerActivity extends UartInterfaceActivity{
                     Intent intent = new Intent(WindControllerActivity.this, ControlHumidityActivity.class);
                     startActivityForResult(intent, kActivityRequestCode_HumidityActivity);
                 }else if(position == 3) {
-                    Intent intent = new Intent(WindControllerActivity.this, ColorPickerActivity.class);
+                    Intent intent = new Intent(WindControllerActivity.this, ScheduleActivity.class);
                     startActivityForResult(intent, kActivityRequestCode_SchedulerActivity);
                 }
             }

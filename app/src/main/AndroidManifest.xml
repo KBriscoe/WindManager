@@ -75,5 +75,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.windmanager.WindControllerActivity" />
         </activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="Scheduler"
+            android:parentActivityName=".WindControllerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.windmanager.WindControllerActivity" />
+        </activity>
     </application>
 </manifest>

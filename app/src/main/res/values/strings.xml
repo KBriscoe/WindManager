@@ -189,6 +189,20 @@
         <item>100%</item>
     </string-array>
 
+    <string-array name="mode_interface_items">
+        <item>Weather</item>
+        <item>Temperature</item>
+        <item>Humidity</item>
+    </string-array>
+
+    <string-array name="time_interface_items">
+        <item>1 Hour</item>
+        <item>2 Hours</item>
+        <item>3 Hours</item>
+        <item>4 Hours</item>
+    </string-array>
+
+
     <!-- Pad Activity -->
     <string name="title_activity_pad">Control Pad</string>
 
