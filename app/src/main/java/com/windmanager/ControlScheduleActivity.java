@@ -6,38 +6,68 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 
 
-public class ScheduleActivity extends UartInterfaceActivity {
-    private final static String TAG = ScheduleActivity.class.getSimpleName();
+public class ControlScheduleActivity extends UartInterfaceActivity{
+    private final static String TAG = ControlScheduleActivity.class.getSimpleName();
+
+    // Constants
+    private final static String kPreferences = "ControllerActivity_prefs";
 
     //Data
     private int modeValue;
     private int levelValue;
     private int timeValue;
-
     private HashMap valueMap = new HashMap();
 
-    private final Spinner modeSpinner = findViewById(R.id.modeSpinner);
-    private final Spinner levelSpinner = findViewById(R.id.levelSpinner);
-    private final Spinner timeSpinner = findViewById(R.id.timeSpinner);
+    Spinner modeSpinner;
+    Spinner levelSpinner;
+    Spinner timeSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        valueMap.put("1 Hour", 3600);
-        valueMap.put("2 Hour", 3600);
-        valueMap.put("3 Hour", 3600);
-        valueMap.put("4 Hour", 3600);
-        valueMap.put("5 Hour", 3600);
-
         mBleManager = BleManager.getInstance(this);
+
+        modeSpinner = findViewById(R.id.modeSpinner);
+        levelSpinner = findViewById(R.id.levelSpinner);
+        timeSpinner = findViewById(R.id.timeSpinner);
+        //Mode Values
+        valueMap.put("Weather", 0);
+        valueMap.put("Humidity", 1);
+        valueMap.put("Temperature", 2);
+        //Weather Level Values
+        valueMap.put("Sunny", 0);
+        valueMap.put("Rainy", 1);
+        valueMap.put("Snow", 2);
+        //Humidity Level Values
+        valueMap.put("0%", 0);
+        valueMap.put("25%", 1);
+        valueMap.put("50%", 2);
+        valueMap.put("75%", 3);
+        valueMap.put("100%", 4);
+        //Temperature Level Values
+        valueMap.put("0", 0);
+        valueMap.put("10", 1);
+        valueMap.put("20", 2);
+        valueMap.put("30", 3);
+        valueMap.put("40", 4);
+        valueMap.put("50", 5);
+        valueMap.put("60", 6);
+        valueMap.put("70", 7);
+        valueMap.put("80", 8);
+        valueMap.put("90+", 9);
+        //Time Values
+        valueMap.put("1 Hour", 1);
+        valueMap.put("2 Hours", 2);
+        valueMap.put("3 Hours", 3);
+        valueMap.put("4 Hours", 4);
+        valueMap.put("5 Hours", 5);
 
         final ArrayAdapter<String> modeAdapter = new ArrayAdapter<>(this, R.layout.layout_controller_interface_title, R.id.titleTextView, getResources().getStringArray(R.array.mode_interface_items));
 
@@ -46,8 +76,6 @@ public class ScheduleActivity extends UartInterfaceActivity {
         final ArrayAdapter<String> humidityLevelAdapter = new ArrayAdapter<>(this, R.layout.layout_controller_interface_title, R.id.titleTextView, getResources().getStringArray(R.array.humiditycontroller_interface_items));
 
         final ArrayAdapter<String> timeAdapter = new ArrayAdapter<>(this, R.layout.layout_controller_interface_title, R.id.titleTextView, getResources().getStringArray(R.array.time_interface_items));
-
-        final Button sendButton = findViewById(R.id.send);
 
         modeSpinner.setAdapter(modeAdapter);
         modeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -76,22 +104,28 @@ public class ScheduleActivity extends UartInterfaceActivity {
                 // Another interface callback
             }
         });
+        onServicesDiscovered();
     }
 
-    public void onClickSend(View view) {
+    public void onClickSet(View view) {
         //Get Spinner Values
         String value = modeSpinner.getSelectedItem().toString();
-        modeValue = Integer.parseInt(value);
+        modeValue = (Integer)valueMap.get(value);
         value = levelSpinner.getSelectedItem().toString();
-        levelValue = Integer.parseInt(value);
+        levelValue = (Integer)valueMap.get(value);
         value = timeSpinner.getSelectedItem().toString();
-        timeValue = Integer.parseInt(value);
+        timeValue = (Integer)valueMap.get(value);
 
-        byte mode = (byte) ((modeValue >> -1) & 0xFF);
-        byte level = (byte) ((levelValue >> 0) & 0x0A);
-        byte time = (byte) ((timeValue >> 0) & 0xFFFFFF);
+        byte mode = (byte) (modeValue);
+        byte level = (byte) (levelValue);
+        byte time = (byte) (timeValue);
+        ByteBuffer buffer = ByteBuffer.allocate(2 + 1 + 1 + 1).order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
-        ByteBuffer buffer = ByteBuffer.allocate(5).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+
+        // prefix
+        String prefix = "!S";
+        buffer.put(prefix.getBytes());
+
 
         // values
         buffer.put(mode);

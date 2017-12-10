@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 public class WindControllerActivity extends UartInterfaceActivity{
+
     // Log
     private final static String TAG = WindControllerActivity.class.getSimpleName();
 
@@ -19,6 +20,7 @@ public class WindControllerActivity extends UartInterfaceActivity{
     private static final int kActivityRequestCode_TemperatureActivity = 1;
     private static final int kActivityRequestCode_WeatherActivity = 2;
     private static final int kActivityRequestCode_SchedulerActivity = 3;
+    private static final int kActivityRequestCode_ModeActivity = 4;
 
     // Constants
     private final static String kPreferences = "ControllerActivity_prefs";
@@ -32,9 +34,10 @@ public class WindControllerActivity extends UartInterfaceActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_windcontroller);
 
-        //Log.d(TAG, "onCreate");
-
         mBleManager = BleManager.getInstance(this);
+
+        //SEND INITIAL SAVED MODE
+
 
         ExpandableHeightListView interfaceListView = findViewById(R.id.interfaceListView);
         ArrayAdapter<String> interfaceListAdapter = new ArrayAdapter<>(this, R.layout.layout_controller_interface_title, R.id.titleTextView, getResources().getStringArray(R.array.windcontroller_interface_items));
@@ -54,8 +57,11 @@ public class WindControllerActivity extends UartInterfaceActivity{
                     Intent intent = new Intent(WindControllerActivity.this, ControlHumidityActivity.class);
                     startActivityForResult(intent, kActivityRequestCode_HumidityActivity);
                 }else if(position == 3) {
-                    Intent intent = new Intent(WindControllerActivity.this, ScheduleActivity.class);
+                    Intent intent = new Intent(WindControllerActivity.this, ControlScheduleActivity.class);
                     startActivityForResult(intent, kActivityRequestCode_SchedulerActivity);
+                }else if(position == 4) {
+                    Intent intent = new Intent(WindControllerActivity.this, ControlModeActivity.class);
+                    startActivityForResult(intent, kActivityRequestCode_ModeActivity);
                 }
             }
         });

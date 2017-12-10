@@ -111,7 +111,7 @@ public class ColorPickerActivity extends UartInterfaceActivity implements ColorP
         byte g = (byte) ((mSelectedColor >> 8) & 0xFF);
         byte b = (byte) ((mSelectedColor >> 0) & 0xFF);
 
-        ByteBuffer buffer = ByteBuffer.allocate(3 + 3 * 1).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+        ByteBuffer buffer = ByteBuffer.allocate(3 + 3).order(java.nio.ByteOrder.LITTLE_ENDIAN);
 
         // prefix
         String prefix = getPrefix();
