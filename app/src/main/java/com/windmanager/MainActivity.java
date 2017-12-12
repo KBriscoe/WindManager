@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements BleManager.BleMan
     // Data
     private BleManager mBleManager;
     private boolean mIsScanPaused = true;
+    private boolean connectRdy = false;
     private BleDevicesScanner mScanner;
     private PeripheralList mPeripheralList;
 
@@ -306,9 +307,8 @@ public class MainActivity extends AppCompatActivity implements BleManager.BleMan
 
                         if (mComponentToStartWhenConnected != null) {
                             connect(deviceData.device);            // First connect to the device, and when connected go to selected activity
-                            Intent intent = new Intent(MainActivity.this, WindControllerActivity.class);
-                            startActivity(intent);
                         }
+
                     }
                 });
 
@@ -485,6 +485,7 @@ public class MainActivity extends AppCompatActivity implements BleManager.BleMan
                 showChooseDeviceServiceDialog(mSelectedDeviceData);
             } else {                          // if no uart, then go directly to info
                 Log.d(TAG, "No UART service found. Go to InfoActivity");
+                connect(device);
             }
         } else {
             Log.w(TAG, "onClickDeviceConnect index does not exist: " + scannedDeviceIndex);
@@ -767,6 +768,9 @@ public class MainActivity extends AppCompatActivity implements BleManager.BleMan
     @Override
     public void onServicesDiscovered() {
         Log.d(TAG, "services discovered");
+        launchComponentActivity();
+        // Check if there is a failed installation that was stored to retry
+
     }
 
     @Override

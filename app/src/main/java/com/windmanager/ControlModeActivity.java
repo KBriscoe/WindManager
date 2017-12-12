@@ -1,9 +1,12 @@
 package com.windmanager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 
 import java.nio.ByteBuffer;
 
@@ -14,6 +17,9 @@ public class ControlModeActivity extends UartInterfaceActivity{
     // Constants
     private final static String kPreferences = "ControllerActivity_prefs";
     private final static String kPreferences_uartToolTip = "uarttooltip";
+
+    //UI
+    private ViewGroup mUartTooltipViewGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,16 @@ public class ControlModeActivity extends UartInterfaceActivity{
 
         byte[] result = buffer.array();
         sendDataWithCRC(result);
+    }
+
+    public void onClickCloseTooltip(View view) {
+        SharedPreferences settings = getSharedPreferences(kPreferences, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(kPreferences_uartToolTip, false);
+        editor.apply();
+
+        mUartTooltipViewGroup.setVisibility(View.GONE);
+
     }
 
     @Override

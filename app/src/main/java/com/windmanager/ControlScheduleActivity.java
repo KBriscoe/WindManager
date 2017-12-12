@@ -1,9 +1,12 @@
 package com.windmanager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -17,6 +20,9 @@ public class ControlScheduleActivity extends UartInterfaceActivity{
 
     // Constants
     private final static String kPreferences = "ControllerActivity_prefs";
+    private final static String kPreferences_uartToolTip = "uarttooltip";
+
+    private ViewGroup mUartTooltipViewGroup;
 
     //Data
     private int modeValue;
@@ -134,6 +140,16 @@ public class ControlScheduleActivity extends UartInterfaceActivity{
 
         byte[] result = buffer.array();
         sendDataWithCRC(result);
+    }
+
+    public void onClickCloseTooltip(View view) {
+        SharedPreferences settings = getSharedPreferences(kPreferences, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(kPreferences_uartToolTip, false);
+        editor.apply();
+
+        mUartTooltipViewGroup.setVisibility(View.GONE);
+
     }
 
     @Override

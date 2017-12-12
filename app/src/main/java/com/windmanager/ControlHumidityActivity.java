@@ -129,6 +129,16 @@ public class ControlHumidityActivity extends UartInterfaceActivity{
         }
     }
 
+    public void onClickCloseTooltip(View view) {
+        SharedPreferences settings = getSharedPreferences(kPreferences, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(kPreferences_uartToolTip, false);
+        editor.apply();
+
+        mUartTooltipViewGroup.setVisibility(View.GONE);
+
+    }
+
     @Override
     public void onDisconnected() {
         super.onDisconnected();
